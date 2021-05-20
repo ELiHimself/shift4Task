@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createContext } from "react";
+import React, { useEffect } from "react";
 import PokemonListItem from "./PokemonListItem";
 import { useFetcher } from "../../hooks";
 import { FavsContextProvider } from "./FavsContext";
