@@ -1,6 +1,6 @@
 import * as React from "react";
 
-const FavoriteIcon = () => {
+const FavoriteIcon = ({ fill }) => {
   return (
     <svg
       viewBox="0 0 300 275"
@@ -9,8 +9,8 @@ const FavoriteIcon = () => {
       class="star"
     >
       <polygon
-        fill="none"
-        stroke="#eee"
+        fill={fill ? "gold" : "none"}
+        stroke="gold"
         stroke-width="20"
         points="150,25 179,111 269,111 197,165  223,251 150,200 77,251 103,165 31,111 121,111"
       />
