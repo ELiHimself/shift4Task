@@ -1,26 +1,12 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect } from "react";
 import PokemonListItem from "./PokemonListItem";
+import { useFetcher } from "../../hooks";
 
 const BASE_URL = "https://pokeapi.co/api/v2/pokemon";
 const FETCH_URL = `${BASE_URL}?limit=15`;
 
 const PokemonList = () => {
-  const [loading, setLoading] = useState(true);
-  const [pokemonData, setPokemonData] = useState([]);
-  const [err, setErr] = useState(null);
-
-  const fetchData = useCallback(async () => {
-    try {
-      const res = await fetch(FETCH_URL);
-      const parsedData = await res.json();
-      const { results } = parsedData;
-      setPokemonData(results);
-      setLoading(false);
-    } catch (error) {
-      setErr("Trouble while fetching Pokemon data. Try again later.");
-      setLoading(false);
-    }
-  }, []);
+  const { loading, err, data, fetchData } = useFetcher(FETCH_URL);
 
   useEffect(() => {
     fetchData();
@@ -34,11 +20,11 @@ const PokemonList = () => {
     return <div>Loading...</div>;
   }
 
-  if (pokemonData.length === 0) {
+  if (data.results.length === 0) {
     return <div>There are no Pokemon to show yet...</div>;
   }
 
-  return pokemonData.map((data, i) => <PokemonListItem data={data} key={i} />);
+  return data.results.map((d, i) => <PokemonListItem data={d} key={i} />);
 };
 
 export default PokemonList;

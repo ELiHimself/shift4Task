@@ -1,27 +1,10 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect } from "react";
 import { utilCapitaliseFirstChar } from "../../utils";
+import { useFetcher } from "../../hooks";
 
 const PokemonListItem = (props) => {
   const { name, url } = props.data;
-
-  const [loading, setLoading] = useState(true);
-  const [data, setData] = useState(null);
-  const [err, setErr] = useState(null);
-
-  const fetchData = useCallback(async () => {
-    try {
-      const res = await fetch(url);
-      const parsedData = await res.json();
-
-      setData(parsedData);
-      setLoading(false);
-    } catch (error) {
-      setErr(
-        "Trouble while fetching individual Pokemon data. Try again later."
-      );
-      setLoading(false);
-    }
-  }, [url]);
+  const { loading, err, data, fetchData } = useFetcher(url);
 
   useEffect(() => {
     fetchData();
