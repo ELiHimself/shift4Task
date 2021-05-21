@@ -3,18 +3,24 @@ import { utilCapitaliseFirstChar } from "../../utils";
 import { useFetcher } from "../../hooks";
 import FavoriteIcon from "../FavoriteIcon/FavoriteIcon";
 import { useFavs } from "./FavsContext";
+import { useHistory } from "react-router-dom";
 
 const PokemonListItem = (props) => {
   const { name, url } = props.data;
   const { loading, err, data, fetchData } = useFetcher(url);
   const { toggleFavState, favs } = useFavs();
 
+  const history = useHistory();
+
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
   return (
-    <div style={{ marginBottom: "20px", maxWidth: 150 }}>
+    <div
+      onClick={() => history.push(`/${name}`, data)}
+      style={{ marginBottom: "20px", maxWidth: 150, background: "silver" }}
+    >
       {err || loading || !data ? (
         <img
           alt={`${name}-placeholder`}
@@ -31,7 +37,7 @@ const PokemonListItem = (props) => {
           width: "30px",
           padding: 0,
           background: "transparent",
-          border: "1px solid red"
+          border: "1px solid red",
         }}
       >
         <FavoriteIcon fill={!!favs[name]} />
