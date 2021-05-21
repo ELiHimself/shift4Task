@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import PokemonListItem from "./PokemonListItem";
 import { useFetcher } from "../../hooks";
-import { FavsContextProvider } from "./FavsContext";
 
 const BASE_URL = "https://pokeapi.co/api/v2/pokemon";
 const FETCH_URL = `${BASE_URL}?limit=15`;
@@ -25,13 +24,7 @@ const PokemonList = () => {
     return <div>There are no Pokemon to show yet...</div>;
   }
 
-  return (
-    <FavsContextProvider>
-      {data.results.map((d, i) => (
-        <PokemonListItem data={d} key={i} />
-      ))}
-    </FavsContextProvider>
-  );
+  return data.results.map((d, i) => <PokemonListItem data={d} key={i} />);
 };
 
 export default PokemonList;

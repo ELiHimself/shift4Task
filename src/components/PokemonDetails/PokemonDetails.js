@@ -1,10 +1,13 @@
 import React, { useEffect, useMemo } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { utilCapitaliseFirstChar } from "../../utils";
+import { useFavs } from "../PokemonList/FavsContext";
+import FavoriteIcon from "../FavoriteIcon/FavoriteIcon";
 
 const PokemonDetails = () => {
   const { pokemonName } = useParams();
   const { state } = useLocation();
+  const { toggleFavState, favs } = useFavs();
 
   useEffect(() => {
     if (!state) {
@@ -32,6 +35,19 @@ const PokemonDetails = () => {
   return (
     <div>
       <h1>{utilCapitaliseFirstChar(pokemonName)}</h1>
+
+      <button
+        onClick={() => toggleFavState(pokemonName)}
+        style={{
+          height: "30px",
+          width: "30px",
+          padding: 0,
+          background: "transparent",
+          border: "1px solid red",
+        }}
+      >
+        <FavoriteIcon fill={!!favs[pokemonName]} />
+      </button>
 
       <table style={{ marginBottom: "30px" }}>
         <caption>Stats</caption>
