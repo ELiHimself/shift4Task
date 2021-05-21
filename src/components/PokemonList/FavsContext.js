@@ -3,7 +3,7 @@ import React, {
   useState,
   useContext,
   useEffect,
-  useCallback
+  useCallback,
 } from "react";
 
 export const FavsContext = createContext();
@@ -30,7 +30,9 @@ export const useFavs = () => {
   useEffect(() => {
     const stringifiedFavs = sessionStorage.getItem("favs");
     const parsedFavs = JSON.parse(stringifiedFavs);
-    setFavs(parsedFavs);
+    if (parsedFavs) {
+      setFavs(parsedFavs);
+    }
   }, [setFavs]);
 
   const toggleFavState = (pokemonName) => {
@@ -50,6 +52,6 @@ export const useFavs = () => {
 
   return {
     toggleFavState,
-    favs
+    favs,
   };
 };
