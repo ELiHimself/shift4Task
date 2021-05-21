@@ -16,6 +16,11 @@ const PokemonListItem = (props) => {
     fetchData();
   }, [fetchData]);
 
+  const handleFavToggle = (e) => {
+    e.stopPropagation();
+    toggleFavState(name);
+  };
+
   return (
     <div
       onClick={() => history.push(`/${name}`, data)}
@@ -31,7 +36,7 @@ const PokemonListItem = (props) => {
       )}
       <div style={{ textAlign: "center" }}>{utilCapitaliseFirstChar(name)}</div>
       <button
-        onClick={() => toggleFavState(name)}
+        onClick={handleFavToggle}
         style={{
           height: "30px",
           width: "30px",
