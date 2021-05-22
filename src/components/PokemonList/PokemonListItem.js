@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { utilCapitaliseFirstChar } from "../../utils";
 import { useFetcher } from "../../hooks";
 import { useHistory } from "react-router-dom";
@@ -7,6 +7,7 @@ import FavButton from "./FavButton";
 const PokemonListItem = (props) => {
   const { name, url } = props.data;
   const { loading, err, data, fetchData } = useFetcher(url);
+  const [hover, setHover] = useState(false);
 
   const history = useHistory();
 
@@ -15,7 +16,12 @@ const PokemonListItem = (props) => {
   }, [fetchData]);
 
   return (
-    <div onClick={() => history.push(`/${name}`, data)} style={styles.card}>
+    <div
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      onClick={() => history.push(`/${name}`, data)}
+      style={{ ...styles.card, transform: hover ? "scale(1.02)" : "scale(1)" }}
+    >
       <div
         style={{
           ...styles.img,

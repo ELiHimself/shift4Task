@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import FavoriteIcon from "../FavoriteIcon/FavoriteIcon";
 import { useFavs } from "./FavsContext";
 
 const FavButton = ({ pokemonName, size }) => {
   const { toggleFavState, favs } = useFavs();
+  const [hover, setHover] = useState(false);
 
   const handleFavToggle = (e) => {
     e.stopPropagation();
@@ -12,6 +13,8 @@ const FavButton = ({ pokemonName, size }) => {
 
   return (
     <button
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
       onClick={handleFavToggle}
       style={{
         height: size ? `${size}px` : "28px",
@@ -22,7 +25,7 @@ const FavButton = ({ pokemonName, size }) => {
         cursor: "pointer",
       }}
     >
-      <FavoriteIcon fill={!!favs[pokemonName]} />
+      <FavoriteIcon fill={!!favs[pokemonName] || hover} />
     </button>
   );
 };
