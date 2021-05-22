@@ -50,7 +50,7 @@ const PokemonDetails = () => {
             onMouseLeave={() => setHover(false)}
             style={{
               ...styles.img,
-              transform: hover ? "scale(1.02)" : "scale(1)",
+              transform: hover ? "scale(1.08)" : "scale(1)",
               backgroundImage: `url(${state.sprites.front_default})`,
             }}
           />
@@ -193,7 +193,7 @@ const styles = {
     backgroundRepeat: "no-repeat",
     backgroundPosition: "bottom",
     backgroundAttachment: "fixed",
-    zIndex: 10,
+    zIndex: 2,
   },
 };
 
