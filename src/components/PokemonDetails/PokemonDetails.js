@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { utilCapitaliseFirstChar } from "../../utils";
 import FavButton from "../PokemonList/FavButton";
@@ -7,6 +7,7 @@ import bgImg from "../../assets/bg.jpeg";
 const PokemonDetails = () => {
   const { pokemonName } = useParams();
   const { state } = useLocation();
+  const [hover, setHover] = useState(false);
 
   useEffect(() => {
     if (!state) {
@@ -43,8 +44,11 @@ const PokemonDetails = () => {
 
         <div style={styles.statsContainer}>
           <div
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
             style={{
               ...styles.img,
+              transform: hover ? "scale(1.02)" : "scale(1)",
               backgroundImage: `url(${state.sprites.front_default})`,
             }}
           />
@@ -135,7 +139,6 @@ const styles = {
     position: "relative",
     borderRadius: "15px",
     border: "5px solid silver",
-    cursor: "pointer",
     boxShadow: "5px 5px 15px 5px rgba(0,0,0,0.21)",
     transition: "all .2s linear",
     marginBottom: "30px",
@@ -164,6 +167,7 @@ const styles = {
     alignItems: "center",
   },
   img: {
+    transition: "all .2s linear",
     height: "400px",
     width: "400px",
     backgroundSize: "cover",
