@@ -14,11 +14,12 @@ const FavButton = ({ pokemonName }) => {
     <button
       onClick={handleFavToggle}
       style={{
-        height: "30px",
-        width: "30px",
+        height: "28px",
+        width: "28px",
         padding: 0,
         background: "transparent",
-        border: "1px solid red",
+        border: "none",
+        cursor: "pointer",
       }}
     >
       <FavoriteIcon fill={!!favs[pokemonName]} />
