@@ -2,6 +2,7 @@ import React, { useEffect, useMemo } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { utilCapitaliseFirstChar } from "../../utils";
 import FavButton from "../PokemonList/FavButton";
+import bgImg from "../../assets/bg.jpeg";
 
 const PokemonDetails = () => {
   const { pokemonName } = useParams();
@@ -31,51 +32,149 @@ const PokemonDetails = () => {
   }, [state.abilities]);
 
   return (
-    <div>
-      <h1>{utilCapitaliseFirstChar(pokemonName)}</h1>
+    <div style={styles.container}>
+      <div style={styles.overlay} />
 
-      <FavButton pokemonName={pokemonName} />
+      <div style={styles.content}>
+        <div style={styles.nameContainer}>
+          <FavButton pokemonName={pokemonName} size={"35"} />
+          <h1 style={styles.name}>{utilCapitaliseFirstChar(pokemonName)}</h1>
+        </div>
 
-      <table style={{ marginBottom: "30px" }}>
-        <caption>Stats</caption>
-        <thead>
-          <tr>
-            {["Name", "Base Stat", "Effort"].map((label, i) => (
-              <th key={i}>{label}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {state.stats.map((stat, i) => (
-            <tr key={i}>
-              <td>{stat.stat["name"]}</td>
-              <td>{stat["base_stat"]}</td>
-              <td>{stat["effort"]}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+        <div style={styles.statsContainer}>
+          <div
+            style={{
+              ...styles.img,
+              backgroundImage: `url(${state.sprites.front_default})`,
+            }}
+          />
 
-      <table>
-        <caption>Abilities</caption>
-        <thead>
-          <tr>
-            {["Slot no.", "Name"].map((label, i) => (
-              <th key={i}>{label}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {abilitiesSortedBySlot.map((ability, i) => (
-            <tr key={i}>
-              <td>{ability["slot"]}</td>
-              <td>{utilCapitaliseFirstChar(ability.ability["name"])}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          <div style={styles.tableContainer}>
+            <table style={styles.table}>
+              <caption style={styles.caption}>Stats</caption>
+              <thead>
+                <tr>
+                  {["Name", "Base Stat", "Effort"].map((label, i) => (
+                    <th style={styles.dataHeaderCell} key={i}>
+                      {label}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {state.stats.map((stat, i) => (
+                  <tr key={i}>
+                    <td style={styles.dataCell}>{stat.stat["name"]}</td>
+                    <td style={styles.dataCell}>{stat["base_stat"]}</td>
+                    <td style={styles.dataCell}>{stat["effort"]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            <table style={styles.table}>
+              <caption style={styles.caption}>Abilities</caption>
+              <thead>
+                <tr>
+                  {["Slot no.", "Name"].map((label, i) => (
+                    <th style={styles.dataHeaderCell} key={i}>
+                      {label}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {abilitiesSortedBySlot.map((ability, i) => (
+                  <tr key={i}>
+                    <td style={styles.dataCell}>{ability["slot"]}</td>
+                    <td style={styles.dataCell}>
+                      {utilCapitaliseFirstChar(ability.ability["name"])}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   );
+};
+
+const styles = {
+  name: {
+    margin: 0,
+    marginLeft: "20px",
+    textShadow: "2px 2px silver",
+  },
+  container: {
+    padding: "15px",
+    position: "relative",
+    minHeight: "100vh",
+    backgroundColor: "#2a75bb",
+  },
+  overlay: {
+    position: "absolute",
+    top: "0",
+    left: "0",
+    height: "100%",
+    width: "100%",
+    backgroundImage: `url(${bgImg})`,
+    backgroundPosition: "center center",
+    backgroundSize: "cover",
+    backgroundAttachment: "fixed",
+    opacity: "0.3",
+  },
+  content: {
+    position: "relative",
+    zIndex: 2,
+  },
+  table: {
+    background: "lightgrey",
+    padding: "15px",
+    position: "relative",
+    borderRadius: "15px",
+    border: "5px solid silver",
+    cursor: "pointer",
+    boxShadow: "5px 5px 15px 5px rgba(0,0,0,0.21)",
+    transition: "all .2s linear",
+    marginBottom: "30px",
+  },
+  dataCell: {
+    fontSize: "10px",
+    padding: "5px",
+    opacity: "0.5",
+  },
+  dataHeaderCell: {
+    fontSize: "12px",
+    padding: "5px",
+    textAlign: "left",
+    paddingBottom: "10px",
+  },
+  caption: {
+    marginBottom: "15px",
+    textAlign: "left",
+    fontSize: "13px",
+    textShadow: "2px 2px silver",
+  },
+  nameContainer: {
+    display: "flex",
+    margin: "30px",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  img: {
+    height: "400px",
+    width: "400px",
+    backgroundSize: "cover",
+    backgroundPosition: "center center",
+    marginBottom: "15px",
+  },
+  statsContainer: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 };
 
 export default PokemonDetails;

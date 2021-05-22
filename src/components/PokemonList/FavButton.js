@@ -2,7 +2,7 @@ import React from "react";
 import FavoriteIcon from "../FavoriteIcon/FavoriteIcon";
 import { useFavs } from "./FavsContext";
 
-const FavButton = ({ pokemonName }) => {
+const FavButton = ({ pokemonName, size }) => {
   const { toggleFavState, favs } = useFavs();
 
   const handleFavToggle = (e) => {
@@ -14,8 +14,8 @@ const FavButton = ({ pokemonName }) => {
     <button
       onClick={handleFavToggle}
       style={{
-        height: "28px",
-        width: "28px",
+        height: size ? `${size}px` : "28px",
+        width: size ? `${size}px` : "28px",
         padding: 0,
         background: "transparent",
         border: "none",
