@@ -3,6 +3,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { utilCapitaliseFirstChar } from "../../utils";
 import FavButton from "../PokemonList/FavButton";
 import bgImg from "../../assets/bg.jpeg";
+import grassImg from "../../assets/grass.png";
 
 const PokemonDetails = () => {
   const { pokemonName } = useParams();
@@ -35,6 +36,7 @@ const PokemonDetails = () => {
   return (
     <div style={styles.container}>
       <div style={styles.overlay} />
+      <div style={styles.grass} />
 
       <div style={styles.content}>
         <div style={styles.nameContainer}>
@@ -113,6 +115,7 @@ const styles = {
   },
   container: {
     padding: "15px",
+    paddingTop: "50px",
     position: "relative",
     minHeight: "100vh",
     backgroundColor: "#2a75bb",
@@ -178,6 +181,19 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+  },
+  grass: {
+    position: "fixed",
+    bottom: "0",
+    left: "0",
+    width: "100%",
+    height: "100%",
+    backgroundImage: `url(${grassImg})`,
+    backgroundSize: "contain",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "bottom",
+    backgroundAttachment: "fixed",
+    zIndex: 10,
   },
 };
 
