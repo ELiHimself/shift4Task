@@ -4,6 +4,7 @@ import { utilCapitaliseFirstChar } from "../../utils";
 import FavButton from "../PokemonList/FavButton";
 import bgImg from "../../assets/bg.jpeg";
 import grassImg from "../../assets/grass.png";
+import pokeballImg from "../../assets/pokeball.png";
 
 const PokemonDetails = () => {
   const { pokemonName } = useParams();
@@ -35,7 +36,9 @@ const PokemonDetails = () => {
 
   return (
     <div style={styles.container}>
-      <div style={styles.overlay} />
+      <div style={styles.overlay}>
+        <img style={styles.pokeball} src={pokeballImg} alt="pokeball" />
+      </div>
       <div style={styles.grass} />
 
       <div style={styles.content}>
@@ -194,6 +197,12 @@ const styles = {
     backgroundPosition: "bottom",
     backgroundAttachment: "fixed",
     zIndex: 2,
+  },
+  pokeball: {
+    position: "fixed",
+    left: "-150px",
+    bottom: "-100px",
+    height: "600px",
   },
 };
 
