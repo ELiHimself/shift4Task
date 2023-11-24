@@ -20,7 +20,12 @@ const PokemonList = () => {
 
       <div style={styles.content}>
         <div style={styles.logoContainer}>
-          <img style={styles.logo} src={logo} alt="pokemon-logo" />
+          <img
+            style={styles.logo}
+            src={logo}
+            alt="pokemon-logo"
+            data-testId="pokemon-logo"
+          />
         </div>
 
         {err ? (
